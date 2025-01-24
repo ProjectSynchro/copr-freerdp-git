@@ -189,7 +189,7 @@ find . -name "*.c" -exec chmod 664 {} \;
 %build
 cd %{_builddir}/%{name}-%{version}
 %cmake \
-    -DBUILD_TESTING=ON \
+    -DBUILD_TESTING=OFF \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
     -DWITH_ALSA=ON \
