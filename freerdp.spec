@@ -19,7 +19,7 @@
 %global _with_static_uwac 1
 
 # Disable unwanted dependencies for RHEL
-%{!?rhel:%global _with_openh264 1}
+%global _with_openh264 0
 %{!?rhel:%global _with_sdl_client 1}
 %{!?rhel:%global _with_soxr 1}
 %{!?rhel:%global _with_uriparser 1}
