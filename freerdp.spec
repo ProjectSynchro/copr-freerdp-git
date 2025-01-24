@@ -32,6 +32,7 @@
 %global git_date 20250124T130717Z
 
 Name:           freerdp
+Epoch:          2
 Version:        %{tag}^%{git_date}.g%{shortcommit}
 Release:        %autorelease
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
