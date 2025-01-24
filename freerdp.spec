@@ -170,7 +170,7 @@ The %{name}-libwinpr-devel package contains libraries and header files for
 developing applications that use %{name}-libwinpr.
 
 %prep
-git clone --single-branch --branch main https://github.com/FreeRDP/FreeRDP %{_builddir}/%{name}-%{version}
+git clone --single-branch --branch master https://github.com/FreeRDP/FreeRDP %{_builddir}/%{name}-%{version}
 cd %{_builddir}/%{name}-%{version}
 git checkout %{commit}
 git submodule update --init --recursive
