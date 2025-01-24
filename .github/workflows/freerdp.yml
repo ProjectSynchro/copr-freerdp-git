@@ -1,0 +1,54 @@
+name: Update FreeRDP
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  update-freerdp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Get Latest Commit
+        id: get-commit
+        run: |
+          latest_commit=$(curl -s https://api.github.com/repos/FreeRDP/FreeRDP/commits/main | jq -r '.sha')
+          git_date=$(curl -s https://api.github.com/repos/FreeRDP/FreeRDP/commits/main | jq -r '.commit.committer.date' | sed 's/[-:]//g')
+          latest_tag=$(curl -s https://api.github.com/repos/FreeRDP/FreeRDP/tags | jq -r '.[0].name')
+          echo "latest-commit=$latest_commit" >> $GITHUB_OUTPUT
+          echo "git-date=$git_date" >> $GITHUB_OUTPUT
+          echo "latest-tag=$latest_tag" >> $GITHUB_OUTPUT
+
+      - name: Get Current Commit
+        id: get-current-commit
+        run: |
+          current_commit=$(grep -oP '(?<=^%global commit ).*' freerdp.spec)
+          echo "current-commit=$current_commit" >> $GITHUB_OUTPUT
+
+      - name: Compare Commits
+        id: compare-commits
+        run: |
+          if [ "${{ steps.get-commit.outputs.latest-commit }}" != "${{ steps.get-current-commit.outputs.current-commit }}" ]; then
+            echo "new-commit='true'" >> $GITHUB_OUTPUT
+          else
+            echo "new-commit='false'" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update Spec File
+        if: ${{ contains(steps.compare-commits.outputs.new-commit, 'true') }}
+        run: |
+          sed -i "s/%global commit .*/%global commit ${{ steps.get-commit.outputs.latest-commit }}/g" freerdp.spec
+          sed -i "s/%global git_date .*/%global git_date ${{ steps.get-commit.outputs.git-date }}/g" freerdp.spec
+          sed -i "s/%global tag .*/%global tag ${{ steps.get-commit.outputs.latest-tag }}/g" freerdp.spec
+
+      - name: Commit and Push Changes
+        if: ${{ contains(steps.compare-commits.outputs.new-commit, 'true') }}
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add freerdp.spec
+          git commit -m "freerdp.spec: Update commit to ${{ steps.get-commit.outputs.latest-commit }}"
+          git push
