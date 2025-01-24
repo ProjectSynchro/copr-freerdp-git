@@ -171,8 +171,9 @@ The %{name}-libwinpr-devel package contains libraries and header files for
 developing applications that use %{name}-libwinpr.
 
 %prep
-git clone --single-branch --branch master https://github.com/FreeRDP/FreeRDP %{_builddir}/%{name}-%{shortcommit}
-cd %{_builddir}/%{name}-%{shortcommit}
+git clone --single-branch --branch master https://github.com/FreeRDP/FreeRDP %{_builddir}/%{name}-%{version}
+
+cd %{_builddir}/%{name}-%{version}
 git checkout %{commit}
 git submodule update --init --recursive
 
@@ -181,13 +182,12 @@ git submodule update --init --recursive
 echo "Removing unicode_builtin.c"
 find . -name "unicode_builtin.c" -exec rm -f {} \;
 
-%autosetup -p1 -n %{name}-%{shortcommit}
-
 # Rpmlint fixes
 find . -name "*.h" -exec chmod 664 {} \;
 find . -name "*.c" -exec chmod 664 {} \;
 
 %build
+cd %{_builddir}/%{name}-%{version}
 %cmake \
     -DBUILD_TESTING=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
@@ -272,6 +272,7 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %cmake_build --target test
 
 %install
+cd %{_builddir}/%{name}-%{version}
 %cmake_install
 
 find %{buildroot} -name "*.a" -delete
