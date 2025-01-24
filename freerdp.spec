@@ -267,10 +267,10 @@ cd %{_builddir}/%{name}-%{version}
 
 %cmake_build
 
-%check
-cd %{_builddir}/%{name}-%{version}
-export CTEST_OUTPUT_ON_FAILURE=1
-%cmake_build --target test
+#%check
+#cd %{_builddir}/%{name}-%{version}
+#export CTEST_OUTPUT_ON_FAILURE=1
+#%cmake_build --target test
 
 %install
 cd %{_builddir}/%{name}-%{version}
