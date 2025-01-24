@@ -29,7 +29,7 @@
 
 %global tag 3.10.3
 %global commit 912d9b83889ec6e53fdd4f98edbd4ab36c15f595
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global shortcommit %(echo %{commit} | cut -c1-7)
 %global git_date 20250124T130717Z
 
 Name:           freerdp
@@ -171,8 +171,8 @@ The %{name}-libwinpr-devel package contains libraries and header files for
 developing applications that use %{name}-libwinpr.
 
 %prep
-git clone --single-branch --branch master https://github.com/FreeRDP/FreeRDP %{_builddir}/%{name}-%{version}
-cd %{_builddir}/%{name}-%{version}
+git clone --single-branch --branch master https://github.com/FreeRDP/FreeRDP %{_builddir}/%{name}-%{shortcommit}
+cd %{_builddir}/%{name}-%{shortcommit}
 git checkout %{commit}
 git submodule update --init --recursive
 
@@ -181,7 +181,7 @@ git submodule update --init --recursive
 echo "Removing unicode_builtin.c"
 find . -name "unicode_builtin.c" -exec rm -f {} \;
 
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{shortcommit}
 
 # Rpmlint fixes
 find . -name "*.h" -exec chmod 664 {} \;
