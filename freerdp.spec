@@ -67,6 +67,9 @@ BuildRequires:  libXrandr-devel
 BuildRequires:  libXv-devel
 %{?_with_opencl:BuildRequires: opencl-headers >= 3.0}
 %{?_with_opencl:BuildRequires: ocl-icd-devel}
+# Pull in full fat openh264 due to unskippable tests
+%{?_with_openh264:BuildRequires:  mozilla-openh264}
+%{?_with_openh264:BuildRequires:  gstreamer1-plugin-openh264}
 %{?_with_openh264:BuildRequires:  pkgconfig(openh264)}
 %{?_with_x264:BuildRequires:  x264-devel}
 %{?_with_server:BuildRequires:  pam-devel}
