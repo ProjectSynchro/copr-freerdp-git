@@ -19,7 +19,7 @@
 %global _with_static_uwac 1
 
 # Disable unwanted dependencies for RHEL
-%global _with_openh264 0
+%{!?rhel:%global _with_openh264 1}
 %{!?rhel:%global _with_sdl_client 1}
 %{!?rhel:%global _with_soxr 1}
 %{!?rhel:%global _with_uriparser 1}
@@ -189,7 +189,7 @@ find . -name "*.c" -exec chmod 664 {} \;
 %build
 cd %{_builddir}/%{name}-%{version}
 %cmake \
-    -DBUILD_TESTING=OFF \
+    -DBUILD_TESTING=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
     -DWITH_ALSA=ON \
@@ -267,10 +267,10 @@ cd %{_builddir}/%{name}-%{version}
 
 %cmake_build
 
-#%check
-#cd %{_builddir}/%{name}-%{version}
-#export CTEST_OUTPUT_ON_FAILURE=1
-#%cmake_build --target test
+%check
+cd %{_builddir}/%{name}-%{version}
+export CTEST_OUTPUT_ON_FAILURE=1
+%cmake_build --target test
 
 %install
 cd %{_builddir}/%{name}-%{version}
@@ -297,8 +297,9 @@ find %{buildroot} -name "*.a" -delete
 %{_mandir}/man1/xfreerdp.1*
 
 %files libs
-%license LICENSE
-%doc README.md ChangeLog
+%license %{name}-%{version}/LICENSE
+%doc %{name}-%{version}/README.md 
+%doc %{name}-%{version}/ChangeLog
 %{_datadir}/FreeRDP/
 %{_libdir}/freerdp3/
 %{_libdir}/libfreerdp-client3.so.*
@@ -365,8 +366,9 @@ find %{buildroot} -name "*.a" -delete
 }
 
 %files -n libwinpr
-%license LICENSE
-%doc README.md ChangeLog
+%license %{name}-%{version}/LICENSE
+%doc %{name}-%{version}/README.md 
+%doc %{name}-%{version}/ChangeLog
 %{_datadir}/WinPR/
 %{_libdir}/libwinpr3.so.*
 %{_libdir}/libwinpr-tools3.so.*
