@@ -19,7 +19,6 @@
 %global _with_static_uwac 1
 
 # Disable unwanted dependencies for RHEL
-%global _with_openh264 0
 %{!?rhel:%global _with_sdl_client 1}
 %{!?rhel:%global _with_soxr 1}
 %{!?rhel:%global _with_uriparser 1}
@@ -67,7 +66,6 @@ BuildRequires:  libXrandr-devel
 BuildRequires:  libXv-devel
 %{?_with_opencl:BuildRequires: opencl-headers >= 3.0}
 %{?_with_opencl:BuildRequires: ocl-icd-devel}
-%{?_with_openh264:BuildRequires:  pkgconfig(openh264)}
 %{?_with_x264:BuildRequires:  x264-devel}
 %{?_with_server:BuildRequires:  pam-devel}
 BuildRequires:  xmlto
@@ -212,7 +210,7 @@ cd %{_builddir}/%{name}-%{version}
     -DWITH_LAME=ON \
     -DWITH_MANPAGES=ON \
     -DWITH_OPENCL=%{?_with_opencl:ON}%{?!_with_opencl:OFF} \
-    -DWITH_OPENH264=%{?_with_openh264:ON}%{?!_with_openh264:OFF} \
+    -DWITH_OPENH264=OFF \
     -DWITH_OPENSSL=ON \
     -DWITH_OPUS=ON \
     -DWITH_PCSC=ON \
