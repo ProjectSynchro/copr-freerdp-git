@@ -27,7 +27,7 @@
 #global _with_webview 1
 
 %global tag 3.10.3
-%global commit null
+%global commit 304dc515ff26e9428a77914a34e8e4e0d690d85a
 %global shortcommit %(echo %{commit} | cut -c1-7)
 %global git_date 20250129T094029Z
 
