@@ -26,10 +26,10 @@
 # Disable support for AAD WebView popup since it uses webkit2gtk-4.0
 #global _with_webview 1
 
-%global tag 3.11.1
-%global commit b223b0318bebe1b77e9c1e36ace506b357ce672c
+%global tag 3.12.0
+%global commit 745310863c04a6414ac87eab6c376a6d1bd2e13b
 %global shortcommit %(echo %{commit} | cut -c1-7)
-%global git_date 20250214T075533Z
+%global git_date 20250214T090459Z
 
 Name:           freerdp
 Epoch:          2
