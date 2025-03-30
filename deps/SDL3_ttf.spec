@@ -30,7 +30,7 @@ developing applications that use %{name}.
 %autosetup
 rm -rf external
 # Fix end-of-line encoding
-sed -i 's/\r//' README.txt CHANGES.txt LICENSE.txt
+sed -i 's/\r//' README.md CHANGES.txt LICENSE.txt
 
 %build
 %cmake -DSDLTTF_HARFBUZZ=true
@@ -44,12 +44,12 @@ find %{buildroot} -type f -name '*.la' -delete -print
 
 %files
 %license LICENSE.txt
-%doc README.txt CHANGES.txt
+%doc README.md CHANGES.txt
 %{_libdir}/lib*.so.*
 
 %files devel
 %{_libdir}/lib*.so
-%{_includedir}/SDL2/*
+%{_includedir}/SDL3/*
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/cmake/SDL3_ttf/
 
