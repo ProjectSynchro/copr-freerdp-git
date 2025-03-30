@@ -203,6 +203,7 @@ cd %{_builddir}/%{name}-%{version}
     -DWITH_CUPS=ON \
     -DWITH_CHANNELS=ON \
     -DWITH_CLIENT=ON \
+    -DWITH_CLIENT_SDL_VERSIONED=%{?_with_sdl2_client:ON}%{?!_with_sdl2_client:%{?_with_sdl3_client:ON}%{?!_with_sdl3_client:OFF}} \
     -DWITH_CLIENT_SDL2=%{?_with_sdl2_client:ON}%{?!_with_sdl2_client:OFF} \
     -DWITH_CLIENT_SDL3=%{?_with_sdl3_client:ON}%{?!_with_sdl3_client:OFF} \
     -DWITH_DSP_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
