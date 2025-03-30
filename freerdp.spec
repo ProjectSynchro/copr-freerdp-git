@@ -287,15 +287,21 @@ find %{buildroot} -name "*.a" -delete
 %multilib_fix_c_header --file %{_includedir}/freerdp3/freerdp/build-config.h
 
 %files
-%{?_with_sdl_client:
-%{_bindir}/sdl-freerdp
+%{?_with_sdl2_client:
+%{_bindir}/sdl2-freerdp
+}
+%{?_with_sdl3_client:
+%{_bindir}/sdl3-freerdp
 }
 %{_bindir}/winpr-hash
 %{_bindir}/winpr-makecert
 %{_bindir}/wlfreerdp
 %{_bindir}/xfreerdp
-%{?_with_sdl_client:
-%{_mandir}/man1/sdl-freerdp.1*
+%{?_with_sdl2_client:
+%{_mandir}/man1/sdl2-freerdp.1*
+}
+%{?_with_sdl3_client:
+%{_mandir}/man1/sdl3-freerdp.1*
 }
 %{_mandir}/man1/winpr-hash.1*
 %{_mandir}/man1/winpr-makecert.1*
