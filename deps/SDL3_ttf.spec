@@ -49,8 +49,8 @@ find %{buildroot} -type f -name '*.la' -delete -print
 
 %files devel
 %{_libdir}/lib*.so
-%{_includedir}/SDL3/*
-%{_libdir}/pkgconfig/%{name}.pc
+%{_includedir}/SDL3_ttf/*
+%{_libdir}/pkgconfig/sdl3-ttf.pc
 %{_libdir}/cmake/SDL3_ttf/
 
 %changelog
