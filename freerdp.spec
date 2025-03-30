@@ -19,7 +19,9 @@
 %global _with_static_uwac 1
 
 # Disable unwanted dependencies for RHEL
-%{!?rhel:%global _with_sdl_client 1}
+%{!?rhel:%global _with_openh264 1}
+%{!?rhel:%global _with_sdl2_client 1}
+%{!?rhel:%global _with_sdl3_client 1}
 %{!?rhel:%global _with_soxr 1}
 %{!?rhel:%global _with_uriparser 1}
 
@@ -88,8 +90,10 @@ BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(opus)
-%{?_with_sdl_client:BuildRequires:  pkgconfig(sdl2)}
-%{?_with_sdl_client:BuildRequires:  pkgconfig(SDL2_ttf)}
+%{?_with_sdl2_client:BuildRequires:  pkgconfig(sdl2)}
+%{?_with_sdl2_client:BuildRequires:  pkgconfig(SDL2_ttf)}
+%{?_with_sdl3_client:BuildRequires:  pkgconfig(sdl3)}
+%{?_with_sdl3_client:BuildRequires:  pkgconfig(SDL3_ttf)}
 %{?_with_soxr:BuildRequires:  pkgconfig(soxr)}
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
@@ -188,6 +192,7 @@ find . -name "*.c" -exec chmod 664 {} \;
 cd %{_builddir}/%{name}-%{version}
 %cmake \
     -DBUILD_TESTING=ON \
+    -DBUILD_TESTING_NO_H264=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
     -DWITH_ALSA=ON \
@@ -196,7 +201,8 @@ cd %{_builddir}/%{name}-%{version}
     -DWITH_CUPS=ON \
     -DWITH_CHANNELS=ON \
     -DWITH_CLIENT=ON \
-    -DWITH_CLIENT_SDL=%{?_with_sdl_client:ON}%{?!_with_sdl_client:OFF} \
+    -DWITH_CLIENT_SDL2=%{?_with_sdl2_client:ON}%{?!_with_sdl2_client:OFF} \
+    -DWITH_CLIENT_SDL3=%{?_with_sdl3_client:ON}%{?!_with_sdl3_client:OFF} \
     -DWITH_DSP_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_FDK_AAC=ON \
     -DWITH_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
@@ -210,7 +216,7 @@ cd %{_builddir}/%{name}-%{version}
     -DWITH_LAME=ON \
     -DWITH_MANPAGES=ON \
     -DWITH_OPENCL=%{?_with_opencl:ON}%{?!_with_opencl:OFF} \
-    -DWITH_OPENH264=OFF \
+    -DWITH_OPENH264=%{?_with_openh264:ON}%{?!_with_openh264:OFF} \
     -DWITH_OPENSSL=ON \
     -DWITH_OPUS=ON \
     -DWITH_PCSC=ON \
