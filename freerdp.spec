@@ -68,6 +68,7 @@ BuildRequires:  libXrandr-devel
 BuildRequires:  libXv-devel
 %{?_with_opencl:BuildRequires: opencl-headers >= 3.0}
 %{?_with_opencl:BuildRequires: ocl-icd-devel}
+%{?_with_openh264:BuildRequires:  pkgconfig(openh264)}
 %{?_with_x264:BuildRequires:  x264-devel}
 %{?_with_server:BuildRequires:  pam-devel}
 BuildRequires:  xmlto
