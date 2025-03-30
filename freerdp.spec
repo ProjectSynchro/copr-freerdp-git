@@ -93,7 +93,8 @@ BuildRequires:  pkgconfig(opus)
 %{?_with_sdl2_client:BuildRequires:  pkgconfig(sdl2)}
 %{?_with_sdl2_client:BuildRequires:  pkgconfig(SDL2_ttf)}
 %{?_with_sdl3_client:BuildRequires:  pkgconfig(sdl3)}
-%{?_with_sdl3_client:BuildRequires:  pkgconfig(SDL3_ttf)}
+# This will probably break whenever Fedora gets to packaging this themselves, but this is the upstream pkgconfig name
+%{?_with_sdl3_client:BuildRequires:  pkgconfig(sdl3-ttf)}
 %{?_with_soxr:BuildRequires:  pkgconfig(soxr)}
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
