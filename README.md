@@ -1,3 +1,6 @@
+> ⚠️ **Notice:**  
+> This project has migrated to **[Codeberg](https://codeberg.org/Synchro/copr-freerdp-git)**. 
+
 Copr repository for git builds of freerdp, commits are fetched every hour.
 
 The packages in this repo should work on Fedora 40+.
